@@ -45,17 +45,32 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var angular = __webpack_require__(1);
-	var receiveComCtrl = __webpack_require__(3);
-	var intranetUserFactory = __webpack_require__(8);
-	var route = __webpack_require__(5);
-	__webpack_require__(6);
-	__webpack_require__(7);
+	var angular             = __webpack_require__(1);
+	var receiveComCtrl      = __webpack_require__(3);
+	var intranetUserFactory = __webpack_require__(4);
+	var equipmentFactory    = __webpack_require__(5);
+	var receiveFormFactory  = __webpack_require__(6);
+	var route = __webpack_require__(11);
+
+	/** plugin module */
+	__webpack_require__(12);
+	__webpack_require__(13);
 
 	var app = angular.module('todoApp', ['ui.router','angucomplete-alt']);
+	/** route */
 	app.config(['$stateProvider', '$urlRouterProvider', route ]);
-	app.controller('ReceiveComCtrl', ['$scope','IntranetUserFactory', receiveComCtrl ]);
+	/** controller */
+	app.controller('ReceiveComCtrl', [
+		'$scope',
+		'IntranetUserFactory',
+		'EquipmentFactory', 
+		'ReceiveFormFactory', 
+		receiveComCtrl 
+	]);
+	/** * factory */
 	app.factory('IntranetUserFactory', ['$http', intranetUserFactory ]);
+	app.factory('EquipmentFactory', ['$http', equipmentFactory ]);
+	app.factory('ReceiveFormFactory', ['$http', receiveFormFactory ]);
 
 /***/ },
 /* 1 */
@@ -29094,12 +29109,20 @@
 
 	'use strict';
 
-	var ReceiveComCtrl = function($scope,IntranetUserFactory) {
+	var ReceiveComCtrl = function($scope,IntranetUserFactory,EquipmentFactory,ReceiveFormFactory) {
 
-	  $scope.userAPIPath = IntranetUserFactory.getAPIPath();
-		// RefData.getIntranetUser().success(function(res){
-		// 	console.log('ccccccc');
-		// });
+	  $scope.userAPIPath      = IntranetUserFactory.getAPIPath();
+	  $scope.equipmentAPIPath = EquipmentFactory.getEquipmentAPIPath();
+	  $scope.saveReceiveForm  = function(){
+	      ReceiveFormFactory.save($scope.receiveForm).success(function(res){
+	          console.log(res);
+	      }); 
+	  };
+
+	  EquipmentFactory.getEquipmentType().success(function(res){
+	      $scope.equipmentTypes = res;
+	      $scope.equipType = $scope.equipmentTypes[1]
+	  }); 
 	  $scope.todo = 'We are up and running from a required xxxxxmodule!';
 	  $scope.countries = [
 	    { name : 'thailand'},
@@ -29128,8 +29151,78 @@
 	module.exports = ReceiveComCtrl;
 
 /***/ },
-/* 4 */,
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	var IntranetUser = function($http){
+		var apiPath = 'backend/public/intranetUser/';
+		return {
+	    	getIntranetUser : function(name) {
+	       		return $http.get(apiPath+name);
+	    	},
+	    	getAPIPath : function(){
+	    		return apiPath;
+	    	}
+	  	}
+	};
+
+	module.exports = IntranetUser; 
+
+/***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+	var Equipment = function($http){
+		var searchEquipmentAPIPath ='backend/public/equipment';
+		return {
+	    	getEquipmentType : function(name) {
+	       		return $http.get('backend/public/equipmentType');
+	    	},
+	    	getEquipmentAPIPath : function(){
+	    		return searchEquipmentAPIPath;
+	    	}
+	  	}
+	};
+
+	module.exports = Equipment; 
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var param = __webpack_require__(14);
+	var ReceiveForm = function($http){
+		return {
+	    	save : function(formData) {
+	       		return  $http({
+				  method  : 'POST',
+				  url     : 'backend/public/receiveForm',
+				  data    : param(formData),  // pass in data as strings
+				  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+				});
+	    	},
+	    	update : function(formData){
+	    		return  $http({
+				  method  : 'PUT',
+				  url     : 'backend/public/receiveForm',
+				  data    : param(formData),  // pass in data as strings
+				  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+				});
+	    	}
+	  	}
+	};
+
+	module.exports = ReceiveForm; 
+
+/***/ },
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29149,7 +29242,7 @@
 	module.exports = Route; 
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/**
@@ -33524,7 +33617,7 @@
 	})(window, window.angular);
 
 /***/ },
-/* 7 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -34356,23 +34449,69 @@
 
 
 /***/ },
-/* 8 */
-/***/ function(module, exports) {
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var IntranetUser = function($http){
-		var apiPath = 'backend/public/intranetUser/';
-		return {
-	    	getIntranetUser : function(name) {
-	       		return $http.get(apiPath+name);
-	    	},
-	    	getAPIPath : function(){
-	    		return apiPath;
-	    	}
-	  	}
-	};
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+	 * @preserve jquery-param (c) 2015 KNOWLEDGECODE | MIT
+	 */
+	(function (global) {
+	    'use strict';
 
-	module.exports = IntranetUser; 
+	    var param = function (a) {
+	        var s = [], rbracket = /\[\]$/,
+	            isArray = function (obj) {
+	                return Object.prototype.toString.call(obj) === '[object Array]';
+	            }, add = function (k, v) {
+	                v = typeof v === 'function' ? v() : v === null ? '' : v === undefined ? '' : v;
+	                s[s.length] = encodeURIComponent(k) + '=' + encodeURIComponent(v);
+	            }, buildParams = function (prefix, obj) {
+	                var i, len, key;
+
+	                if (prefix) {
+	                    if (isArray(obj)) {
+	                        for (i = 0, len = obj.length; i < len; i++) {
+	                            if (rbracket.test(prefix)) {
+	                                add(prefix, obj[i]);
+	                            } else {
+	                                buildParams(prefix + '[' + (typeof obj[i] === 'object' ? i : '') + ']', obj[i]);
+	                            }
+	                        }
+	                    } else if (obj && String(obj) === '[object Object]') {
+	                        for (key in obj) {
+	                            buildParams(prefix + '[' + key + ']', obj[key]);
+	                        }
+	                    } else {
+	                        add(prefix, obj);
+	                    }
+	                } else if (isArray(obj)) {
+	                    for (i = 0, len = obj.length; i < len; i++) {
+	                        add(obj[i].name, obj[i].value);
+	                    }
+	                } else {
+	                    for (key in obj) {
+	                        buildParams(key, obj[key]);
+	                    }
+	                }
+	                return s;
+	            };
+
+	        return buildParams('', a).join('&').replace(/%20/g, '+');
+	    };
+
+	    if (typeof module === 'object' && typeof module.exports === 'object') {
+	        module.exports = param;
+	    } else if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	            return param;
+	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else {
+	        global.param = param;
+	    }
+
+	}(this));
+
+
 
 /***/ }
 /******/ ]);

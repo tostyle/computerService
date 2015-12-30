@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/intranetUser/{name}', 'IntranetUserController@findIntranetUserDetail');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,12 @@ Route::get('/intranetUser/{name}', 'IntranetUserController@findIntranetUserDetai
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+Route::get('/intranetUser/{name}', 'IntranetUserController@findIntranetUserDetail');
+Route::get('/equipmentType', 'EquipmentController@getEquipmentType');
+Route::get('/equipment/{type}/{name?}', 'EquipmentController@searhEquipment');
+
+Route::post('/receiveForm', 'ComputerFormController@saveReceiveForm');
+Route::put('/receiveForm', 'ComputerFormController@updateReceiveForm');
 
 Route::group(['middleware' => ['web']], function () {
     //

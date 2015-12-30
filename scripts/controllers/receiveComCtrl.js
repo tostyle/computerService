@@ -1,11 +1,19 @@
 'use strict';
 
-var ReceiveComCtrl = function($scope,IntranetUserFactory) {
+var ReceiveComCtrl = function($scope,IntranetUserFactory,EquipmentFactory,ReceiveFormFactory) {
 
-  $scope.userAPIPath = IntranetUserFactory.getAPIPath();
-	// RefData.getIntranetUser().success(function(res){
-	// 	console.log('ccccccc');
-	// });
+  $scope.userAPIPath      = IntranetUserFactory.getAPIPath();
+  $scope.equipmentAPIPath = EquipmentFactory.getEquipmentAPIPath();
+  $scope.saveReceiveForm  = function(){
+      ReceiveFormFactory.save($scope.receiveForm).success(function(res){
+          console.log(res);
+      }); 
+  };
+
+  EquipmentFactory.getEquipmentType().success(function(res){
+      $scope.equipmentTypes = res;
+      $scope.equipType = $scope.equipmentTypes[1]
+  }); 
   $scope.todo = 'We are up and running from a required xxxxxmodule!';
   $scope.countries = [
     { name : 'thailand'},

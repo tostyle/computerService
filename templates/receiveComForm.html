@@ -4,22 +4,23 @@
 	  <legend><h2>Receive Form</h2></legend>
 		  <div class="row">
 		  		<div class="column medium-6">
+		  		  {{ receiveForm }}
 		  			<label>ชื่อผู้ข้อ 
 		  				<angucomplete-alt id="username"
 				              placeholder="ชื่อ สกุล"
 				              pause="400"
-				              selected-object="receiveUser"
+				              selected-object="receiveForm.receiveUser"
 				              remote-url="{{ userAPIPath }}"
 				              title-field="User_NameT,SurNameT"
 				              description-field="ShortName"/>
 				      </label>
 		  		</div>	
 		  		<div class="column medium-6">
-		  			<div ng-show="receiveUser.originalObject">
-			  			<p><strong>รหัสพนักงาน </strong>{{ receiveUser.originalObject.IDNo}} </p>
-			  			<p><strong>บริษัท </strong>{{ receiveUser.originalObject.CompanyName}} </p>
-			  			<p><strong>ฝ่าย </strong>{{ receiveUser.originalObject.GroupName}}</p>
-			  			<p><strong>เบอร์ติดต่อ </strong>{{ receiveUser.originalObject.TelExt}}</p>
+		  			<div ng-show="receiveForm.receiveUser.originalObject">
+			  			<p><strong>รหัสพนักงาน </strong>{{ receiveForm.receiveUser.originalObject.IDNo}} </p>
+			  			<p><strong>บริษัท </strong>{{ receiveForm.receiveUser.originalObject.CompanyName}} </p>
+			  			<p><strong>ฝ่าย </strong>{{ receiveForm.receiveUser.originalObject.GroupName}}</p>
+			  			<p><strong>เบอร์ติดต่อ </strong>{{ receiveForm.receiveUser.originalObject.TelExt}}</p>
 		  			</div>
 		  		</div>
 		  </div>
@@ -43,23 +44,33 @@
 				        				<div class="row">
 				        					<div class="column medium-3">
 				        						<label for="">
-				        							ชนิดอุปกรณ์
-				        							<select></select>
+				        							ชนิดอุปกรณ์ 
+				        							<select  ng-options="equipmentType.equipmenttype for equipmentType in equipmentTypes track by equipmentType.equipmenttype" ng-model="equipType"></select>
 				        						</label>
 				        					</div>
 				        					<div class="column medium-7">
 				        						<label for="" >
 				        							ชื่ออุปกรณ์
-				        							<div class="input-group">
-													  <input class="input-group-field" type="number">
-													  <div class="input-group-button">
-													    <input type="submit" class="button success" value="Add">
-													  </div>
+				        							<div class="input-group"> 
+				        								<angucomplete-alt id="newEquipment"
+											              placeholder="อุปกรณ์"
+											              pause="400"
+											              selected-object="receiveForm.newEquipment"
+											              remote-url="{{ equipmentAPIPath }}/{{ equipType.equipmenttype }}/"
+											              title-field="name"
+											              description-field="serialno"/>
 													</div>
 				        						</label>
 				        					</div>
-				        					<div class="column medium-3">
-				        						
+				        					<div class="column medium-2">
+				        						<label for="" >&nbsp
+				        							<div>
+				        								<input 	type="button" 
+				        										class="button success" 
+				        										value="Add" 
+				        										ng-click="saveReceiveForm()">
+				        							</div>
+				        						</label>
 				        					</div>
 				        				</div>
 				        			</td>

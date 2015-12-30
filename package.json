@@ -11,6 +11,8 @@
   "devDependencies": {
     "angucomplete-alt": "^2.1.0",
     "angular": "^1.4.8",
-    "angular-ui-router": "^0.2.15"
+    "angular-ui-router": "^0.2.15",
+    "jquery-param": "^0.2.0",
+    "node-jquery-param": "0.0.2"
   }
 }
