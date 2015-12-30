@@ -1,0 +1,16 @@
+{
+  "name": "Computer_Service_Application",
+  "version": "1.0.0",
+  "description": "computer service app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tostyle",
+  "license": "ISC",
+  "devDependencies": {
+    "angucomplete-alt": "^2.1.0",
+    "angular": "^1.4.8",
+    "angular-ui-router": "^0.2.15"
+  }
+}

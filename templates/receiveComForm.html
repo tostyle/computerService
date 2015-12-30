@@ -1,0 +1,101 @@
+
+<div class="row">
+	<fieldset class="fieldset">
+	  <legend><h2>Receive Form</h2></legend>
+		  <div class="row">
+		  		<div class="column medium-6">
+		  			<label>ชื่อผู้ข้อ 
+		  				<angucomplete-alt id="username"
+				              placeholder="ชื่อ สกุล"
+				              pause="400"
+				              selected-object="receiveUser"
+				              remote-url="{{ userAPIPath }}"
+				              title-field="User_NameT,SurNameT"
+				              description-field="ShortName"/>
+				      </label>
+		  		</div>	
+		  		<div class="column medium-6">
+		  			<div ng-show="receiveUser.originalObject">
+			  			<p><strong>รหัสพนักงาน </strong>{{ receiveUser.originalObject.IDNo}} </p>
+			  			<p><strong>บริษัท </strong>{{ receiveUser.originalObject.CompanyName}} </p>
+			  			<p><strong>ฝ่าย </strong>{{ receiveUser.originalObject.GroupName}}</p>
+			  			<p><strong>เบอร์ติดต่อ </strong>{{ receiveUser.originalObject.TelExt}}</p>
+		  			</div>
+		  		</div>
+		  </div>
+		  <div class="row">
+		  		<div class="column large-12">
+		  			<label>อุปกรณ์ส่งมอบ
+				        <table style="width:100%;">
+				        	<thead>
+				        		<tr>
+				        			<th>ที่</th>
+				        			<th >รายการ</th>
+				        			<th>S/N</th>
+				        			<th>จำนวน</th>
+				        			<th>เลขที่รับคืน</th>
+				        		</tr>
+				        	</thead>
+				        	<tbody>
+				        		<tr>
+				        			<td></td>
+				        			<td>
+				        				<div class="row">
+				        					<div class="column medium-3">
+				        						<label for="">
+				        							ชนิดอุปกรณ์
+				        							<select></select>
+				        						</label>
+				        					</div>
+				        					<div class="column medium-7">
+				        						<label for="" >
+				        							ชื่ออุปกรณ์
+				        							<div class="input-group">
+													  <input class="input-group-field" type="number">
+													  <div class="input-group-button">
+													    <input type="submit" class="button success" value="Add">
+													  </div>
+													</div>
+				        						</label>
+				        					</div>
+				        					<div class="column medium-3">
+				        						
+				        					</div>
+				        				</div>
+				        			</td>
+				        		</tr>
+				        	</tbody>
+				        </table>
+				     </label>
+		  		</div>	
+		  </div>
+		  <div class="row"  >
+		  	<div class="column medium-6" ng-repeat="programs in programList">
+		  		<label for="">โปรแกรมที่ติดตั้ง
+					<div class="row">
+						<div class="column medium-12">
+							<fieldset class="fieldset">
+							<h5 >{{ programs.programType }}</h5><hr>
+							<div class="row" ng-repeat="program in programs.programs">
+								<div class="small-4 columns">
+								    <input id="checkbox1" type="checkbox">
+									<label for="checkbox1">
+										{{ program.name + ' (' + program.detail + ')' }}
+									</label>
+							    </div>
+								<div class="small-5 columns float-left">
+									<input id="checkbox2" class="" type="text" plceholder="program version ">
+								</div>
+							</fieldset>
+						</div>
+					</div>
+		  		</label>
+		  	</div>
+		  </div>
+		  <div class="row">
+			  <div class="small-1 small-centered columns">
+			  	<button type="button" class="success button">Save</button>
+			  </div>
+			</div>
+	</fieldset>
+</div>

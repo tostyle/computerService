@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body ng-app="todoApp">
+   <link rel="stylesheet" type="css" href="bower_components/foundation-sites/dist/foundation.min.css">
+   <link rel="stylesheet" type="css" href="node_modules/angucomplete-alt/angucomplete-alt.css">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">ระบบขอยืมคอมพิวเตอร์</li>
+            <li class="has-submenu">
+              <a href="#">จัดการข้อมูล</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><a ui-sref="returnForm" >สร้างใบส่งคืนคอมพิวเตอร์</a></li>
+                <li><a ui-sref="receiveForm" >สร้างใบรับมอบคอมพิวเตอร์</a></li>
+                <li><a href="#">เพิ่มคอมพิวเตอร์</a></li>
+                <li><a href="#">เพิ่มอุปกรณ์คอมพิวเตอร์</a></li>
+                <li><a href="#">เพิ่มข้อมูล License</a></li>
+              </ul>
+            </li>
+            <li class="has-submenu">
+              <a href="#">รายงาน</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><a href="#">รายงานใบรับคืนคอมพิวเตอร์</a></li>
+                <li><a href="#">รายงานใบส่งมอบคอมพิวเตอร์</a></li>
+                <li><a href="#">รายงานคอมพิวเตอร์</a></li>
+                <li><a href="#">รายงานอุปกรณ์คอมพิวเตอร์</a></li>
+                <li><a href="#">รายงานข้อมูล License</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search"></li>
+          <li><button type="button" class="button">Search</button></li>
+        </ul>
+      </div>
+    </div>
+    <div ui-view></div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation-sites/dist/foundation.min.js"></script>
+    <script type="text/javascript" src="dist/bundle.js"></script>
+    <script>$(document).foundation();</script>
+  </body>
+</html>
