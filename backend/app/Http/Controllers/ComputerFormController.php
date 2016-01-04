@@ -20,9 +20,9 @@ class ComputerFormController extends Controller
     		'year'    => date('Y')
     	));
     	ComputerForm::create(array(
-    		'form_id' => $newFormID,
+    		'form_id'   => $newFormID,
     		'form_type' => 'Receive',
-    		'user_id' => $input['receiveUser']['originalObject']['UserID'],
+    		'user_id'   => $input['receiveUser']['originalObject']['UserID'],
     	));
     }
     public function updateReceiveForm(Request $request)
