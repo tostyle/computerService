@@ -14,23 +14,27 @@ class ComputerFormController extends Controller
     public function saveComputerForm(Request $request)
     {
     	$inputs = $request->all();
+         $uri = $request->path();
+         $path = explode('/', $uri);
+         $formType= ucfirst($path[1]);
         if(!empty($inputs['formID']))
             $formID = $inputs['formID'];
-        print_r($inputs);exit;
         if( empty($formID) )
         {
         	$formID = ComputerForm::getNewFormID(array(
         		'company' => $inputs['receiveUser']['originalObject']['CompanyName'],
-        		'type'    => $inputs['formType'],
+        		'type'    => $formType,
         		'year'    => date('Y')
         	));
         	ComputerForm::create(array(
         		'form_id'   => $formID,
-        		'form_type' => $inputs['formType'],
+        		'form_type' => $formType,
         		'user_id'   => $inputs['receiveUser']['originalObject']['UserID'],
         	));
         }
         ComputerFormEquipment::create(array(
+            'computer_form_id' => $formID,
+            'equipment_id' => $inputs['newEquipment']['originalObject']['id']
         ));
     }
     public function updateReceiveForm(Request $request)
