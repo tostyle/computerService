@@ -11,19 +11,27 @@ use App\Models\ComputerForm;
  error_reporting(E_ALL);
 class ComputerFormController extends Controller
 {
-    public function saveReceiveForm(Request $request)
+    public function saveComputerForm(Request $request)
     {
-    	$input = $request->all();
-    	$newFormID = ComputerForm::getNewFormID(array(
-    		'company' => $input['receiveUser']['originalObject']['CompanyName'],
-    		'type'    => 'Receive',
-    		'year'    => date('Y')
-    	));
-    	ComputerForm::create(array(
-    		'form_id'   => $newFormID,
-    		'form_type' => 'Receive',
-    		'user_id'   => $input['receiveUser']['originalObject']['UserID'],
-    	));
+    	$inputs = $request->all();
+        if(!empty($inputs['formID']))
+            $formID = $inputs['formID'];
+        print_r($inputs);exit;
+        if( empty($formID) )
+        {
+        	$formID = ComputerForm::getNewFormID(array(
+        		'company' => $inputs['receiveUser']['originalObject']['CompanyName'],
+        		'type'    => $inputs['formType'],
+        		'year'    => date('Y')
+        	));
+        	ComputerForm::create(array(
+        		'form_id'   => $formID,
+        		'form_type' => $inputs['formType'],
+        		'user_id'   => $inputs['receiveUser']['originalObject']['UserID'],
+        	));
+        }
+        ComputerFormEquipment::create(array(
+        ));
     }
     public function updateReceiveForm(Request $request)
     {

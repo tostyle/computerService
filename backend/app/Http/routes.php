@@ -30,8 +30,8 @@ Route::get('/intranetUser/{name}', 'IntranetUserController@findIntranetUserDetai
 Route::get('/equipmentType', 'EquipmentController@getEquipmentType');
 Route::get('/equipment/{type}/{name?}', 'EquipmentController@searhEquipment');
 
-Route::post('/receiveForm', 'ComputerFormController@saveReceiveForm');
-Route::put('/receiveForm', 'ComputerFormController@updateReceiveForm');
+Route::post('/computerForm/receive', 'ComputerFormController@saveComputerForm');
+Route::put('/computerForm/receive', 'ComputerFormController@updateReceiveForm');
 
 Route::group(['middleware' => ['web']], function () {
     //

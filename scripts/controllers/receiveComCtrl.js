@@ -4,6 +4,7 @@ var ReceiveComCtrl = function($scope,IntranetUserFactory,EquipmentFactory,Receiv
 
   $scope.userAPIPath      = IntranetUserFactory.getAPIPath();
   $scope.equipmentAPIPath = EquipmentFactory.getEquipmentAPIPath();
+  
   $scope.saveReceiveForm  = function(){
       ReceiveFormFactory.save($scope.receiveForm).success(function(res){
           console.log(res);

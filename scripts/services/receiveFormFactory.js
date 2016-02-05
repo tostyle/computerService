@@ -5,7 +5,7 @@ var ReceiveForm = function($http){
     	save : function(formData) {
        		return  $http({
 			  method  : 'POST',
-			  url     : 'backend/public/receiveForm',
+			  url     : 'backend/public/computerForm/receive',
 			  data    : param(formData),  // pass in data as strings
 			  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
 			});
@@ -13,7 +13,7 @@ var ReceiveForm = function($http){
     	update : function(formData){
     		return  $http({
 			  method  : 'PUT',
-			  url     : 'backend/public/receiveForm',
+			  url     : 'backend/public/computerForm/receive',
 			  data    : param(formData),  // pass in data as strings
 			  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
 			});

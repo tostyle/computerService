@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 class ComputerForm extends Model
 { 
+	protected $fillable = ['form_id', 'form_type','user_id'];
 	protected $table = 'computer_form';
 	/**
 	 * [scopeNewFormID description]
