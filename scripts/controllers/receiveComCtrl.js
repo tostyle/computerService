@@ -15,15 +15,6 @@ var ReceiveComCtrl = function($scope,IntranetUserFactory,EquipmentFactory,Receiv
       $scope.equipmentTypes = res;
       $scope.equipType = $scope.equipmentTypes[1]
   }); 
-  $scope.todo = 'We are up and running from a required xxxxxmodule!';
-  $scope.countries = [
-    { name : 'thailand'},
-    { name : 'vientrrt'},
-    { name : 'honfgokosd'},
-    { name : 'xxxxxxx'},
-    { name : 'sssssssss'},
-  ];
-
   $scope.programList = [
   	{ programType : 'license' ,
   	  programs : [
