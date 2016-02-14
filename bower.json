@@ -1,0 +1,21 @@
+{
+  "name": "Computer_Service_Application",
+  "description": "computer service app",
+  "main": "index.js",
+  "authors": [
+    "tostyle"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/tostyle/computerService",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "~6.1.2"
+  }
+}
